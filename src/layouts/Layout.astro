@@ -21,7 +21,19 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     <a href="/" class="wordmark">
       <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
     </a>
-    <nav>
+    <button
+      class="menu-toggle"
+      id="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-nav"
+      aria-label="Apri il menu"
+    >
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+      <span class="menu-toggle-bar"></span>
+    </button>
+    <nav id="site-nav">
       <a href="/">Home</a>
       <a href="/about-us">Chi siamo</a>
       <a href="/sacro-di-birmania">Sacro di Birmania</a>
@@ -158,6 +170,53 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     }
     .site-header nav a:hover { color: var(--ink); border-color: var(--brass); }
 
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: stretch;
+      gap: 5px;
+      width: 2.25rem;
+      height: 2.25rem;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      z-index: 101;
+    }
+    .menu-toggle-bar {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 1px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .menu-toggle[aria-expanded='true'] .menu-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle[aria-expanded='true'] .menu-toggle-bar:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded='true'] .menu-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 700px) {
+      .site-header { position: relative; z-index: 101; }
+      .menu-toggle { display: flex; }
+      .site-header nav {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.75rem;
+        background: var(--paper);
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        z-index: 100;
+      }
+      .site-header nav.open { transform: translateX(0); }
+      .site-header nav a { font-size: 1.15rem; }
+      body.nav-open { overflow: hidden; }
+    }
+
     main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
 
     .site-footer {
@@ -169,5 +228,37 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     .site-footer p { font-size: 0.88rem; color: var(--ink-soft); }
     .footer-wordmark { font-size: 1rem; }
   </style>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const nav = document.getElementById('site-nav');
+
+    if (toggle && nav) {
+      const closeNav = () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.classList.remove('nav-open');
+      };
+
+      const openNav = () => {
+        nav.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.classList.add('nav-open');
+      };
+
+      toggle.addEventListener('click', () => {
+        const isOpen = nav.classList.contains('open');
+        isOpen ? closeNav() : openNav();
+      });
+
+      nav.addEventListener('click', (event) => {
+        if (event.target instanceof HTMLAnchorElement) closeNav();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeNav();
+      });
+    }
+  </script>
 </body>
 </html>
