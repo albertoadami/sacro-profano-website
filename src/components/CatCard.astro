@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  name: string;
+  breed: string;
+  color?: string;
+  titles: string[];
+  coverImage: ImageMetadata;
+  href: string;
+}
+const { name, breed, color, titles, coverImage, href } = Astro.props;
+const isSacro = breed === 'Sacro di Birmania';
+---
+<a class={`cat-card ${isSacro ? 'sacro-cat' : 'profano-cat'}`} href={href}>
+  <Image src={coverImage} alt={name} width={400} height={400} loading="lazy" />
+  <div class="cat-card-body">
+    <h3>{name}</h3>
+    <p class="meta">{breed}{color ? ` · ${color}` : ''}</p>
+    {titles.length > 0 && <p class="titles">{titles.join(', ')}</p>}
+  </div>
+</a>
+
+<style>
+  .cat-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--sacro);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cat-card { transition: none; }
+  }
+  .cat-card:hover { transform: translateY(-4px); }
+  .cat-card.sacro-cat { border-radius: 20px 6px 6px 6px; border-top-color: var(--sacro); }
+  .cat-card.profano-cat { border-radius: 4px 16px 4px 16px; border-top-color: var(--profano); }
+
+  .cat-card img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+
+  .cat-card-body { padding: 0.85rem 1.1rem 1.1rem; }
+  .cat-card-body h3 { font-size: 1.2rem; margin-bottom: 0.2rem; }
+
+  .meta {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .titles {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+  .sacro-cat .titles { background: var(--sacro-soft); color: var(--sacro); }
+  .profano-cat .titles { background: var(--profano-soft); color: var(--profano); }
+</style>

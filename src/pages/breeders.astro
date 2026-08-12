@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CatCard from '../components/CatCard.astro';
+import { getCollection } from 'astro:content';
+import { BREEDS } from '../content/config';
+
+const allCats = await getCollection('cats');
+const groups = BREEDS.map((breed) => ({
+  breed,
+  cats: allCats.filter((c) => c.data.breed === breed).sort((a, b) => a.data.order - b.data.order),
+}));
+---
+<Layout title="I nostri riproduttori" description="I riproduttori Sacro di Birmania e Kurilian Bobtail del nostro allevamento.">
+  <h1>I nostri riproduttori</h1>
+  <div class="rule"></div>
+
+  {groups.map((group) => (
+    <section class={`breed-group ${group.breed === 'Sacro di Birmania' ? 'sacro' : 'profano'}`}>
+      <h2>{group.breed}</h2>
+      {group.cats.length > 0 ? (
+        <div class="grid">
+          {group.cats.map((cat) => (
+            <CatCard
+              name={cat.data.name}
+              breed={cat.data.breed}
+              color={cat.data.color}
+              titles={cat.data.titles}
+              coverImage={cat.data.coverImage}
+              href={`/breeders/${cat.slug}`}
+            />
+          ))}
+        </div>
+      ) : (
+        <p><em>Nessun riproduttore pubblicato ancora per questa razza.</em></p>
+      )}
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .rule {
+    height: 2px;
+    width: 6rem;
+    margin: 1rem 0 0.5rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+  .breed-group { margin-top: 2.5rem; }
+  .breed-group h2 { display: inline-block; padding-bottom: 0.3rem; border-bottom: 2px solid var(--sacro); }
+  .breed-group.profano h2 { border-bottom-color: var(--profano); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+</style>

@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BreedCatsList from '../components/BreedCatsList.astro';
+
+const traits = [
+  ['Corpo', 'Forte, muscoloso e robusto. Le potenti zampe posteriori sono più lunghe delle anteriori, per cui il dorso risulta leggermente inclinato in avanti.'],
+  ['Coda', 'Ben fornita di pelo, può essere nodosa, curva, attorcigliata o addirittura storta. Lunga tra 3 e 12 cm: oltre gli 8 cm è considerata un difetto nei soggetti da esposizione.'],
+  ['Testa', 'Larga, di forma trapezoidale, con guance piene.'],
+  ['Naso', 'Media lunghezza, senza uno stop definito.'],
+  ['Orecchie', 'Alte sul cranio, di media grandezza, abbondantemente pelose.'],
+  ['Pelliccia', 'Esiste nelle varietà a pelo corto e semilungo. Nella varietà semilunga il mantello è di media lunghezza, morbido e setoso, con poco sottopelo, più lungo su gorgiera, pancia e fianchi.'],
+];
+
+const allowedColors = ['Nero', 'Rosso', 'Tartarugato', 'Blu', 'Crema', 'Blue tortie', 'Silver', 'Smoke', 'Bianco (pezzature)', 'Tabby'];
+const excludedColors = ['Chocolate', 'Fawn', 'Cinnamon', 'Lavanda', 'Colorpoint'];
+---
+<Layout
+  title="Kurilian Bobtail"
+  description="Tutto sul Kurilian Bobtail: storia, carattere, aspetto, colori riconosciuti e i nostri riproduttori."
+>
+  <div class="breed-masthead profano">
+    <span class="eyebrow">Il profano</span>
+    <h1>Kurilian Bobtail</h1>
+    <div class="rule"></div>
+  </div>
+
+  <h2>Storia</h2>
+  <p>
+    Il Kurilian è una razza di recente riconoscimento, sviluppatasi in modo naturale: è
+    esistita in totale isolamento per un lungo periodo di tempo sulle Isole Curili, un
+    arcipelago situato tra la Russia e il Giappone.
+  </p>
+  <p>
+    Praticamente sconosciuto nel resto del mondo, è invece diventato abbastanza popolare in
+    Russia grazie al buon carattere e al look selvatico, nonostante la mancanza di un vero
+    lavoro di selezione alle spalle che lo classificasse come razza.
+  </p>
+  <p>
+    Si trovano infatti numerosi documenti che citano gatti dalla coda corta riportati a casa
+    da militari e scienziati in missione su quelle isole, intorno alla metà del secolo
+    scorso. Un vero e proprio programma di selezione e allevamento è stato intrapreso solo
+    verso la fine degli anni '80, da due allevatrici russe.
+  </p>
+
+  <h2>Carattere</h2>
+  <p>
+    L'aspetto selvatico del Kurilian non riflette il temperamento della razza. È un gatto
+    intelligente e giocherellone, che ama la compagnia del proprio padrone e di altri animali
+    domestici, e si adatta perfettamente alla vita in appartamento. In libertà è conosciuto
+    per le sue doti di abile cacciatore, ottimo pescatore e nuotatore: caratteristiche che
+    mantiene anche nella vita in appartamento.
+  </p>
+
+  <h2>Aspetto</h2>
+  <dl class="traits-grid">
+    {traits.map(([term, def]) => (
+      <>
+        <dt>{term}</dt>
+        <dd>{def}</dd>
+      </>
+    ))}
+  </dl>
+
+  <h2>Colori riconosciuti</h2>
+  <p>
+    Il Kurilian è riconosciuto nei colori tradizionali — nero, rosso e tartarugato — con le
+    relative diluizioni: blu, crema e blue tortie, con o senza pezzature di bianco. Sono
+    ammesse anche le varianti silver e smoke, in tutti i colori, sia in versione solida che
+    con marcature tabby.
+  </p>
+  <div class="color-chips">
+    {allowedColors.map((c) => <span class="chip allowed">{c}</span>)}
+  </div>
+  <p class="excluded-note">
+    Poiché per il Kurilian Bobtail non sono consentiti incroci con altre razze, non sono
+    ammesse le colorazioni che tradiscono un'evidente ibridazione:
+  </p>
+  <div class="color-chips">
+    {excludedColors.map((c) => <span class="chip excluded">{c}</span>)}
+  </div>
+
+  <h2>Registrazione</h2>
+  <p>
+    Per questa razza è ancora previsto il noviziato: è possibile presentare un gatto per
+    ottenerne il riconoscimento anche senza un pedigree che ne attesti la genealogia, purché
+    sia certificata la sua provenienza dalle Isole Curili.
+  </p>
+
+  <h2>I nostri riproduttori Kurilian Bobtail</h2>
+  <BreedCatsList breed="Kurilian Bobtail" />
+
+  <p><a class="text-link" href="/litters">Vedi le cucciolate disponibili →</a></p>
+</Layout>
+
+<style>
+  .breed-masthead { margin-bottom: 1.75rem; }
+  .breed-masthead .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--profano);
+  }
+  .breed-masthead h1 {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+  }
+  .breed-masthead .rule {
+    height: 3px;
+    width: 6rem;
+    margin-top: 1rem;
+    background: repeating-linear-gradient(90deg, var(--profano) 0 10px, transparent 10px 16px);
+  }
+  .text-link { color: var(--profano); font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+
+  h2 { margin-top: 2.25rem; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .traits-grid dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--profano);
+    padding-top: 0.15rem;
+  }
+  .traits-grid dd { margin: 0 0 0.5rem; color: var(--ink-soft); }
+  @media (max-width: 640px) {
+    .traits-grid { grid-template-columns: 1fr; }
+    .traits-grid dt { margin-top: 0.75rem; }
+  }
+
+  .color-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .chip {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+  .chip.allowed { color: var(--profano); border-color: var(--profano); background: var(--profano-soft); }
+  .chip.excluded {
+    color: var(--ink-soft);
+    border-color: var(--line);
+    background: var(--paper-2);
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-soft);
+  }
+  .excluded-note { margin-top: 1.5rem; color: var(--ink-soft); }
+</style>

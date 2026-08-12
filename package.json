@@ -1,0 +1,20 @@
+{
+  "name": "sacroeprofano-cattery",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "link-check": "linkinator ./dist --recurse"
+  },
+  "dependencies": {
+    "astro": "^4.15.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "linkinator": "^6.1.2",
+    "typescript": "^5.6.2"
+  }
+}
