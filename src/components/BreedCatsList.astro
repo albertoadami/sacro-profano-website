@@ -1,0 +1,36 @@
+---
+import CatCard from './CatCard.astro';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  breed: 'Sacro di Birmania' | 'Kurilian Bobtail';
+}
+const { breed } = Astro.props;
+
+const cats = (await getCollection('cats', (c) => c.data.breed === breed))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+{cats.length > 0 ? (
+  <div class="grid">
+    {cats.map((cat) => (
+      <CatCard
+        name={cat.data.name}
+        breed={cat.data.breed}
+        color={cat.data.color}
+        titles={cat.data.titles}
+        coverImage={cat.data.coverImage}
+        href={`/breeders/${cat.slug}`}
+      />
+    ))}
+  </div>
+) : (
+  <p><em>Nessun riproduttore pubblicato ancora per questa razza.</em></p>
+)}
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+</style>

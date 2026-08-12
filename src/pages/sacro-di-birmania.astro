@@ -1,0 +1,232 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BreedCatsList from '../components/BreedCatsList.astro';
+
+const colors = [
+  { name: 'Seal point', swatch: '#3b2a20', desc: 'Il colore con maggiore contrasto: dal bruno scuro al nero, su un mantello avorio con sfumature dorate.' },
+  { name: 'Blue point', swatch: '#5b6470', desc: 'Diluizione del seal: points grigio-blu intenso su un mantello più chiaro, con riflessi grigio-beige.' },
+  { name: 'Chocolate point', swatch: '#6b4226', desc: 'Simile al seal per mutazione genetica, ma più contrastato: points color marrone cioccolato su un mantello avorio chiaro.' },
+  { name: 'Lilac point', swatch: '#a4919a', desc: 'Diluizione del chocolate, come il blue lo è del seal: points grigio rosato su un mantello chiarissimo con riflessi magnolia.' },
+  { name: 'Red point', swatch: '#c1502e', desc: 'Portatore del gene orange, colore solido come il seal: points rosso fuoco su un mantello avorio chiaro con sfumature dorate.' },
+  { name: 'Cream point', swatch: '#e3b98f', desc: 'Diluizione del red, la varietà più chiara: points rosa salmonato su un mantello chiaro.' },
+];
+
+const standard = [
+  ['Taglia', 'Media.'],
+  ['Testa', 'Ossatura robusta, fronte leggermente arrotondata, guance piene e alquanto arrotondate, mento consistente.'],
+  ['Naso', 'Media lunghezza, senza stop ma con una leggera intaccatura.'],
+  ['Orecchie', 'Abbastanza piccole con estremità arrotondate, poste leggermente inclinate e ben distanziate.'],
+  ['Occhi', 'Non troppo arrotondati, leggermente ovali. Colore azzurro scuro.'],
+  ['Corpo', 'Lievemente allungato; i maschi devono essere più massicci delle femmine.'],
+  ['Zampe', 'Corte e grosse, piedi arrotondati.'],
+  ['Guanti', 'La caratteristica speciale della razza: piedi bianco assolutamente puro su tutte e quattro le zampe, che si fermano all’articolazione. Sul retro delle zampe posteriori terminano idealmente a "V" invertita, estendendosi da metà a tre quarti dello spazio tra piede e garretto.'],
+  ['Coda', 'Media lunghezza, a pennacchio.'],
+  ['Pelliccia', 'Semilunga, tessitura setosa e scarso sottopelo; corta sul muso, più lunga su guance e gorgiera, lunga su dorso e fianchi.'],
+];
+
+const flaws = [
+  'Bianco puro o chiazze colorate sul torace o sullo stomaco',
+  'Chiazze bianche sulle parti colorate, o il contrario',
+  'Macchia bianca sui genitali',
+  'Pigmentazione incompleta della cute del naso',
+  'Risalite del bianco sui lati o sul retro dei guanti (i cosiddetti "lacci")',
+  'Assenza di gambaletti sulle zampe posteriori',
+];
+
+const points = [
+  ['Testa (conformazione, guance, naso, bocca e denti, fronte, mento, orecchie)', 20],
+  ['Forma e colore degli occhi', 5],
+  ['Corpo (forma, taglia, ossatura, zampe, piedi)', 20],
+  ['Coda (lunghezza e forma)', 10],
+  ['Colore del corpo e delle punte', 10],
+  ['Qualità e tessitura del pelo', 10],
+  ['Guanti sulle zampe anteriori', 5],
+  ['Guanti sulle zampe posteriori', 5],
+  ['Gambaletti', 5],
+  ['Uniformità e simmetria di guanti e gambaletti', 5],
+  ['Condizione generale', 5],
+];
+---
+<Layout
+  title="Sacro di Birmania"
+  description="Tutto sul Sacro di Birmania: carattere, aspetto, colori riconosciuti, standard FIFe e i nostri riproduttori."
+>
+  <div class="breed-masthead sacro">
+    <span class="eyebrow">Il sacro</span>
+    <h1>Sacro di Birmania</h1>
+    <div class="rule"></div>
+  </div>
+
+  <h2>Carattere</h2>
+  <p>
+    Il Sacro di Birmania ha un carattere equilibrato, dolce e affettuoso: è il perfetto
+    connubio tra quello del Persiano e quello del Siamese, con la tranquillità del primo e
+    l'intelligenza e la giocosità del secondo.
+  </p>
+  <p>
+    È molto legato al suo umano, che ama con tenerezza e devozione. È un gatto socievole
+    che vive tranquillamente con bambini, cani e altri gatti… anche se la sua preferenza
+    resta l'essere "figlio unico". Non ama la solitudine: in caso di assenze prolungate del
+    padrone è consigliabile dargli la compagnia di un altro gatto.
+  </p>
+  <p>
+    È molto intelligente e sensibile… è l'unico gatto che guarda il padrone negli occhi non
+    per sfida, ma per leggere i suoi pensieri. Impara con facilità il proprio nome e si
+    precipita a ricevere coccole e pappa non appena viene chiamato.
+  </p>
+
+  <h2>Aspetto e mantello</h2>
+  <p>
+    Il Sacro di Birmania è un gatto colorpoint e fa parte di quel gruppo di razze feline
+    che portano il gene himalayano, tipico anche del gatto Siamese. Il mantello è di colore
+    avorio, con tonalità più o meno calde.
+  </p>
+  <p>
+    Le caratteristiche estetiche del Birmano sono le "estremità" (muso, zampe, orecchie,
+    coda, genitali), colorate e in contrasto con il corpo, e i piedini detti "guanti":
+    delle "V" rovesciate di un bianco candido, in forte contrasto con i points. Nei
+    soggetti da esposizione il bianco non deve oltrepassare la regione carpale.
+  </p>
+
+  <h2>Colori riconosciuti</h2>
+  <div class="color-grid">
+    {colors.map((c) => (
+      <div class="color-item">
+        <span class="color-swatch" style={`background:${c.swatch}`}></span>
+        <div>
+          <h3>{c.name}</h3>
+          <p>{c.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>Standard FIFe</h2>
+  <dl class="standard-grid">
+    {standard.map(([term, def]) => (
+      <>
+        <dt>{term}</dt>
+        <dd>{def}</dd>
+      </>
+    ))}
+  </dl>
+
+  <details class="technical-details">
+    <summary>Difetti che precludono il certificato e scala dei punti</summary>
+
+    <h3>Difetti che precludono il certificato</h3>
+    <ul>
+      {flaws.map((f) => <li>{f}</li>)}
+    </ul>
+
+    <h3>Scala dei punti <span class="points-total">(totale 100 punti)</span></h3>
+    <table class="points-table">
+      <tbody>
+        {points.map(([label, value]) => (
+          <tr>
+            <td>{label}</td>
+            <td class="points-value">{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+
+  <h2>I nostri riproduttori Sacro di Birmania</h2>
+  <BreedCatsList breed="Sacro di Birmania" />
+
+  <p><a class="text-link" href="/litters">Vedi le cucciolate disponibili →</a></p>
+</Layout>
+
+<style>
+  .breed-masthead { margin-bottom: 1.75rem; }
+  .breed-masthead .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sacro);
+  }
+  .breed-masthead h1 {
+    font-family: var(--font-display-italic);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+  }
+  .breed-masthead .rule {
+    height: 2px;
+    width: 6rem;
+    margin-top: 1rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+  .text-link { color: var(--sacro); font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+
+  h2 { margin-top: 2.25rem; }
+
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .color-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .color-swatch {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+    border: 1px solid var(--line);
+  }
+  .color-item h3 { font-size: 1.05rem; margin: 0 0 0.25rem; }
+  .color-item p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+
+  .standard-grid {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .standard-grid dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sacro);
+    padding-top: 0.15rem;
+  }
+  .standard-grid dd { margin: 0 0 0.5rem; color: var(--ink-soft); }
+  @media (max-width: 640px) {
+    .standard-grid { grid-template-columns: 1fr; }
+    .standard-grid dt { margin-top: 0.75rem; }
+  }
+
+  .technical-details {
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .technical-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sacro);
+  }
+  .technical-details h3 { font-size: 1.1rem; margin-top: 1.5rem; }
+  .technical-details ul { color: var(--ink-soft); padding-left: 1.25rem; }
+  .technical-details li { margin-bottom: 0.35rem; }
+  .points-total { font-weight: 400; color: var(--ink-soft); font-size: 0.85rem; }
+
+  .points-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+  .points-table tr { border-bottom: 1px solid var(--line); }
+  .points-table td { padding: 0.5rem 0; color: var(--ink-soft); }
+  .points-value {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--ink);
+    width: 4rem;
+  }
+</style>

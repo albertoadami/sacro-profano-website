@@ -1,0 +1,81 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import catHouse from '../assets/about/cat-house.png';
+---
+<Layout
+  title="Chi siamo"
+  description="Allevamento amatoriale di gatti Sacro di Birmania e Kurilian Bobtail: filosofia, esperienza e affiliazioni."
+>
+  <h1>Chi siamo</h1>
+  <div class="rule"></div>
+
+  <p>
+    Il nostro allevamento di Sacri di Birmania nasce nel 2008, dal desiderio di Diego di voler
+    intraprendere una nuova strada rispetto al vecchio allevamento Golden Rock, condiviso fino
+    a quel momento con un'altra persona. Restano con noi in allevamento tutti i gatti Golden
+    Rock, che ci permettono di portare avanti il lavoro di selezione già iniziato da Diego e
+    di migliorarlo grazie a nuove linee di sangue provenienti dai più prestigiosi allevamenti
+    europei. L'ottimo lavoro svolto in questi anni fa in modo che tutti i gatti, prima Golden
+    Rock e adesso Sacro &amp; Profano, abbiano un look ben riconoscibile.
+  </p>
+
+  <h2>La nostra filosofia</h2>
+  <p>
+    La nostra filosofia di allevamento non persegue la "perfezione estetica" a tutti i costi,
+    ma in primis abbiamo a cuore la salute dei gatti.
+  </p>
+
+  <div class="cat-house-section">
+    <div>
+      <h2>Una vera cat-house</h2>
+      <p>
+        Tutti i nostri gatti vivono in casa con noi, e condividono con noi la vita familiare…
+        sonnecchiano sui divani e i letti. Hanno a disposizione tanti e divertenti tiragraffi
+        dove poter giocare e rifarsi le unghiette. La nostra casa è a misura di gatto… ampie
+        terrazze su cui prendere il sole e guardare gli uccellini, senza correre rischi, e
+        mensole che percorrono tutta la casa ad una certa altezza e che riportano il micio a
+        terra tramite simpatiche scalette o tiragraffi… insomma la nostra è una vera "cat-house".
+      </p>
+    </div>
+    <Image class="cat-house-photo" src={catHouse} alt="I nostri gatti a casa, tra divani, tiragraffi e mensole" width={431} height={524} />
+  </div>
+
+  <h2>Affiliazioni</h2>
+  <p>
+    Indica qui le associazioni feline di riferimento (es. ANFI, ENFI, FIFe) e da quanti anni
+    siete iscritti — aumenta molto la credibilità agli occhi di chi cerca un allevamento serio.
+  </p>
+
+  <h2>Dove siamo</h2>
+  <p>
+    Città/regione e, se volete, indicazioni su visite in allevamento su appuntamento.
+  </p>
+</Layout>
+
+<style>
+  .rule {
+    height: 2px;
+    width: 6rem;
+    margin: 1rem 0 1.75rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+
+  .cat-house-section {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .cat-house-photo {
+    width: 100%;
+    height: auto;
+    border-top: 3px solid var(--brass);
+    border-radius: 20px 6px 6px 6px;
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 640px) {
+    .cat-house-section { grid-template-columns: 1fr; }
+    .cat-house-photo { max-width: 320px; }
+  }
+</style>

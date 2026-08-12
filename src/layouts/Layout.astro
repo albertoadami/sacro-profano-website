@@ -1,0 +1,173 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } = Astro.props;
+---
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title} · Sacro e Profano Cattery</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="preload" href="/fonts/fraunces-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/worksans-variable.woff2" as="font" type="font/woff2" crossorigin />
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="wordmark">
+      <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
+    </a>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about-us">Chi siamo</a>
+      <a href="/sacro-di-birmania">Sacro di Birmania</a>
+      <a href="/kurilian-bobtail">Kurilian Bobtail</a>
+      <a href="/breeders">Riproduttori</a>
+      <a href="/litters">Cucciolate</a>
+      <a href="/contact">Contatti</a>
+    </nav>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <a href="/" class="wordmark footer-wordmark">
+      <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
+    </a>
+    <p>&copy; {new Date().getFullYear()} Sacro e Profano Cattery</p>
+  </footer>
+
+  <style is:global>
+    @font-face {
+      font-family: 'Fraunces';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url('/fonts/fraunces-variable.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Fraunces Italic';
+      font-style: italic;
+      font-weight: 500;
+      font-display: swap;
+      src: url('/fonts/fraunces-italic.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'Work Sans';
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url('/fonts/worksans-variable.woff2') format('woff2');
+    }
+
+    :root {
+      /* Shared neutrals: warm limestone, evokes temple stone and island rock alike */
+      --stone: #eae3d6;
+      --paper: #f5f1e7;
+      --paper-2: #ede6d7;
+      --ink: #2b2521;
+      --ink-soft: #55493f;
+      --line: #d9cfbc;
+
+      /* Sacro (Sacro di Birmania): temple-blue, the breed's own eye color */
+      --sacro: #2f4c74;
+      --sacro-soft: #e3e9f1;
+
+      /* Profano (Kurilian Bobtail): volcanic-island ember */
+      --profano: #a8552b;
+      --profano-soft: #f1e2d5;
+
+      /* Gilt accent, used sparingly for "sacred" dividers/marks */
+      --brass: #9c7a3e;
+
+      --shadow: 0 1px 2px rgba(43, 37, 33, 0.06), 0 8px 24px -12px rgba(43, 37, 33, 0.22);
+
+      --font-display: 'Fraunces', ui-serif, Georgia, serif;
+      --font-display-italic: 'Fraunces Italic', ui-serif, Georgia, serif;
+      --font-body: 'Work Sans', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme='light']) {
+        --stone: #2b2219;
+        --paper: #34291e;
+        --paper-2: #3c3024;
+        --ink: #f2e8d9;
+        --ink-soft: #cbb99f;
+        --line: #4c3d2c;
+        --sacro: #9bb8e3;
+        --sacro-soft: #33445c;
+        --profano: #e5975f;
+        --profano-soft: #4a3624;
+        --brass: #d3b378;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.25), 0 12px 32px -14px rgba(0, 0, 0, 0.45);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    :root { color-scheme: light dark; }
+    body {
+      font-family: var(--font-body);
+      background: var(--stone);
+      color: var(--ink);
+      margin: 0;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: var(--font-display); font-weight: 700; margin: 0 0 0.6em; text-wrap: balance; }
+    a { color: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--sacro);
+      outline-offset: 3px;
+    }
+
+    .wordmark {
+      font-size: 1.15rem;
+      line-height: 1;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .wordmark .sacro {
+      font-family: var(--font-display-italic);
+      font-style: italic;
+      font-weight: 500;
+      color: var(--sacro);
+    }
+    .wordmark .rest { font-family: var(--font-display); font-weight: 800; }
+
+    .site-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-header nav { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+    .site-header nav a {
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      border-bottom: 1px solid transparent;
+      padding-bottom: 0.15rem;
+    }
+    .site-header nav a:hover { color: var(--ink); border-color: var(--brass); }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+    .site-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 0.75rem 1.5rem;
+      padding: 2rem;
+      border-top: 1px solid var(--line);
+    }
+    .site-footer p { font-size: 0.88rem; color: var(--ink-soft); }
+    .footer-wordmark { font-size: 1rem; }
+  </style>
+</body>
+</html>

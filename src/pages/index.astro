@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Home">
+  <section class="hero">
+    <h1 class="wordmark hero-wordmark"><span class="sacro">Sacro</span> <span class="rest">e Profano Cattery</span></h1>
+    <p class="lede">Allevamento amatoriale di Sacro di Birmania e Kurilian Bobtail.</p>
+  </section>
+
+  <section>
+    <h2>Chi siamo</h2>
+    <p>
+      Breve presentazione dell'allevamento: da quanto tempo esiste, la filosofia di
+      allevamento, l'attenzione a salute e carattere dei gatti.
+      <a class="text-link" href="/about-us">Scopri di più →</a>
+    </p>
+  </section>
+
+  <section class="diptych">
+    <article class="panel sacro-panel">
+      <span class="eyebrow">Il sacro</span>
+      <h2>Sacro di Birmania</h2>
+      <div class="rule"></div>
+      <p>Carattere dolce e socievole, il tipico "colpo di pennello" bianco sulle zampe.</p>
+      <a class="cta" href="/sacro-di-birmania">Scopri la razza e i riproduttori →</a>
+    </article>
+    <article class="panel profano-panel">
+      <span class="eyebrow">Il profano</span>
+      <h2>Kurilian Bobtail</h2>
+      <div class="rule"></div>
+      <p>Vivace e intelligente, riconoscibile dalla caratteristica coda corta.</p>
+      <a class="cta" href="/kurilian-bobtail">Scopri la razza e i riproduttori →</a>
+    </article>
+  </section>
+
+  <section>
+    <h2>Cucciolate</h2>
+    <p>
+      Segui le nostre cucciolate, nate e in arrivo.
+      <a class="text-link" href="/litters">Vai alle cucciolate →</a>
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding: 1.5rem 0 2.5rem; }
+  .hero-wordmark { font-size: clamp(2rem, 5vw, 2.75rem); }
+  .lede { margin-top: 0.75rem; font-size: 1.05rem; color: var(--ink-soft); }
+
+  .text-link { color: var(--brass); font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+
+  .diptych { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 2.5rem 0; }
+  @media (max-width: 640px) {
+    .diptych { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 1.75rem 1.75rem 2rem;
+    box-shadow: var(--shadow);
+  }
+  .panel.sacro-panel { border-radius: 26px 8px 8px 8px; border-top: 3px solid var(--sacro); }
+  .panel.profano-panel { border-radius: 4px 20px 4px 20px; border-top: 3px solid var(--profano); }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .sacro-panel .eyebrow { color: var(--sacro); }
+  .profano-panel .eyebrow { color: var(--profano); }
+
+  .panel h2 { font-size: 1.5rem; margin-top: 0.4rem; margin-bottom: 0; }
+  .sacro-panel h2 { font-family: var(--font-display-italic); font-style: italic; font-weight: 500; }
+  .profano-panel h2 { font-weight: 800; }
+
+  .panel .rule { height: 2px; margin: 1rem 0; }
+  .sacro-panel .rule { background: linear-gradient(90deg, var(--brass), transparent 70%); }
+  .profano-panel .rule { background: repeating-linear-gradient(90deg, var(--profano) 0 10px, transparent 10px 16px); height: 3px; }
+
+  .panel p { color: var(--ink-soft); }
+
+  .panel .cta {
+    display: inline-block;
+    margin-top: 1.1rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .sacro-panel .cta { color: var(--sacro); }
+  .profano-panel .cta { color: var(--profano); }
+  .panel .cta:hover { text-decoration: underline; }
+</style>
