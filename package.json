@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "link-check": "linkinator ./dist --recurse"
+    "link-check": "linkinator ./dist --recurse --skip \"^https://www\\.sacroeprofanocattery\\.com|^https://www\\.facebook\\.com\""
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
