@@ -24,7 +24,11 @@ export default function middleware(request: Request): Response | void {
 
   const url = new URL(request.url);
   url.pathname = '/en';
-  const response = Response.redirect(url, 307);
-  response.headers.set('set-cookie', 'locale=en; Path=/; Max-Age=31536000; SameSite=Lax');
-  return response;
+  return new Response(null, {
+    status: 307,
+    headers: {
+      Location: url.toString(),
+      'set-cookie': 'locale=en; Path=/; Max-Age=31536000; SameSite=Lax',
+    },
+  });
 }
