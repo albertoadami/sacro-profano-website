@@ -9,6 +9,16 @@ import Layout from '../layouts/Layout.astro';
     scrivici tramite il form o contattaci direttamente.
   </p>
 
+  <div class="contact-info">
+    <p class="contact-name">Sacro e Profano</p>
+    <p>Allevamento Kurilian Bobtail e Sacri di Birmania</p>
+    <p>di Diego Norbedo e Diana Di Natale</p>
+    <p>Trieste – Italia</p>
+    <p>Cellulare Diego: <a href="tel:+393357685734">(+39) 335-7685734</a></p>
+    <p>Cellulare Diana: <a href="tel:+393478491253">(+39) 347-8491253</a></p>
+    <p>E-mail: <a href="mailto:info@sacroeprofanocattery.com">info@sacroeprofanocattery.com</a></p>
+  </div>
+
   <!--
     Sostituisci YOUR_FORM_ID con l'ID ottenuto creando un form gratuito su https://formspree.io
     Nessun backend necessario: Formspree gestisce l'invio email e lo spam.
@@ -37,6 +47,11 @@ import Layout from '../layouts/Layout.astro';
     margin: 1rem 0 1.75rem;
     background: linear-gradient(90deg, var(--brass), transparent 90%);
   }
+  .contact-info { margin: 1.5rem 0; color: var(--ink-soft); }
+  .contact-info p { margin: 0.2rem 0; }
+  .contact-info .contact-name { font-family: var(--font-display); font-weight: 700; color: var(--ink); font-size: 1.1rem; }
+  .contact-info a { color: var(--sacro); text-decoration: none; }
+  .contact-info a:hover { text-decoration: underline; }
   .contact-form { display: grid; gap: 1rem; max-width: 480px; margin-top: 1.5rem; }
   .contact-form label { display: grid; gap: 0.35rem; font-size: 0.9rem; font-weight: 500; }
   .contact-form input, .contact-form textarea {
