@@ -45,6 +45,35 @@ per link esterni e condivisioni):
 - `/litters` — lista cucciolate (da content collection `litters`), raggruppate/etichettate per razza
 - `/contact` — form Formspree
 
+## Lingue (IT/EN)
+
+Sito bilingue tramite l'`i18n` built-in di Astro (`astro.config.mjs`): italiano
+è la lingua di default (URL senza prefisso, es. `/sacro-di-birmania`), inglese
+vive sotto `/en/...`. Gli slug inglesi di `about-us`, `birmans` (Sacro di
+Birmania) e `kurilian-bobtail-section` ricalcano deliberatamente quelli del
+vecchio sito invece di rispecchiare gli slug italiani — vedi la mappa in
+`src/i18n/routes.ts`, che è anche ciò che il language switcher e i tag
+`hreflang` in `Layout.astro` usano per trovare la pagina equivalente.
+
+- **Rilevamento lingua per geolocalizzazione**: `middleware.ts` alla radice
+  del repo è Vercel Edge Middleware (indipendente da `output: 'static'`,
+  gira comunque perché è una feature della piattaforma Vercel, non di Astro)
+  — al primo accesso a `/` redirige in base al paese IP (`x-vercel-ip-country`):
+  Italia resta su `/`, altrove va su `/en`. Esclude i bot/crawler e rispetta
+  un cookie `locale` già impostato (dal redirect stesso o dal cambio lingua
+  manuale) per non sovrascrivere mai una scelta esplicita. Non testabile in
+  locale (`npm run dev`/`preview`) — l'header IP esiste solo su Vercel.
+- **Stringhe UI** (nav, footer, testi ricorrenti): dizionario in `src/i18n/ui.ts`.
+- **Content collections**: `cats`/`litters` (IT) hanno un gemello
+  `catsEn`/`littersEn` con lo stesso schema Zod — stesso slug per lo stesso
+  gatto/cucciolata (es. `luna.md` in entrambe le cartelle), cambia solo il
+  testo libero nel body markdown. Chi aggiorna il sito deve ricordarsi di
+  aggiornare entrambe le versioni.
+- Le pagine `/kurilian-bobtail` e `/sacro-di-birmania` (e le loro versioni EN
+  `kurilian-bobtail-section`/`birmans`) hanno testo lungo scritto direttamente
+  nei file `.astro`, quindi le versioni EN sono file `.astro` separati sotto
+  `src/pages/en/`, non un lookup generico di stringhe.
+
 ## Obiettivo SEO
 
 Il sito attuale non è indicizzato su Google. Il rebuild migliora automaticamente
@@ -68,6 +97,11 @@ ancora implementato in questo repo):
 - Collegare Formspree con un vero form ID (attualmente `YOUR_FORM_ID`)
 - Deploy su Vercel + collegamento dominio Aruba via DNS
 - Aggiungere sitemap/meta SEO come sopra
+- Far rileggere da madrelingua i testi di `/en/birmans` e
+  `/en/kurilian-bobtail-section`: sul vecchio sito quelle pagine non erano mai
+  state davvero tradotte (l'URL `/en/...` serviva testo italiano), quindi il
+  testo attuale è una traduzione fatta da Claude, non professionale come
+  quella di `/en/about-us` (quella sì presa dal vecchio sito)
 
 ## Comandi utili
 

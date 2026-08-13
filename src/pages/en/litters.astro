@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import { useTranslations, breedLabels, statusLabels } from '../../i18n/ui';
+
+const t = useTranslations('en');
+const litters = (await getCollection('littersEn')).sort(
+  (a, b) => b.data.birthDate.valueOf() - a.data.birthDate.valueOf()
+);
+---
+<Layout title="Litters" lang="en" description="Sacred Birman and Kurilian Bobtail litters: born, upcoming and available.">
+  <h1>Litters</h1>
+  <div class="rule"></div>
+
+  {litters.length === 0 && <p><em>{t('litters.empty')}</em></p>}
+
+  <div class="litters">
+    {litters.map((litter) => (
+      <div class={`litter ${litter.data.breed === 'Sacro di Birmania' ? 'sacro' : 'profano'}`}>
+        <Image src={litter.data.coverImage} alt={litter.data.title} width={400} height={300} />
+        <div>
+          <span class="breed-tag">{breedLabels.en[litter.data.breed]}</span>
+          <h2>{litter.data.title}</h2>
+          <p>{t('litters.born')}: {litter.data.birthDate.toLocaleDateString('en-GB')}</p>
+          <p>{t('litters.status')}: <strong>{statusLabels.en[litter.data.status]}</strong></p>
+        </div>
+      </div>
+    ))}
+  </div>
+</Layout>
+
+<style>
+  .rule {
+    height: 2px;
+    width: 6rem;
+    margin: 1rem 0 0.5rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+  .litters { display: grid; gap: 2rem; margin-top: 2rem; }
+  .litter {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    border-top: 3px solid var(--sacro);
+    padding-top: 1.25rem;
+  }
+  .litter.profano { border-top-color: var(--profano); }
+  .litter img { border-radius: 12px; width: 100%; object-fit: cover; }
+  .breed-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    background: var(--sacro-soft);
+    color: var(--sacro);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 0.5rem;
+  }
+  .litter.profano .breed-tag { background: var(--profano-soft); color: var(--profano); }
+</style>

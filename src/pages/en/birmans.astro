@@ -1,0 +1,233 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BreedCatsList from '../../components/BreedCatsList.astro';
+
+const colors = [
+  { name: 'Seal point', swatch: '#3b2a20', desc: 'The highest-contrast color: dark brown to black points on an ivory coat with warm golden undertones.' },
+  { name: 'Blue point', swatch: '#5b6470', desc: 'A dilution of seal: intense grey-blue points on a lighter coat, with grey-beige highlights.' },
+  { name: 'Chocolate point', swatch: '#6b4226', desc: 'Genetically related to seal but with stronger contrast: chocolate-brown points on a pale ivory coat.' },
+  { name: 'Lilac point', swatch: '#a4919a', desc: 'A dilution of chocolate, the way blue is of seal: pinkish-grey points on a very pale coat with magnolia highlights.' },
+  { name: 'Red point', swatch: '#c1502e', desc: 'Carries the orange gene, a solid color like seal: fiery red points on a pale ivory coat with golden undertones.' },
+  { name: 'Cream point', swatch: '#e3b98f', desc: 'A dilution of red, the palest variety: salmon-pink points on a light coat.' },
+];
+
+const standard = [
+  ['Size', 'Medium.'],
+  ['Head', 'Strong bone structure, slightly rounded forehead, full and rather rounded cheeks, solid chin.'],
+  ['Nose', 'Medium length, no stop but with a slight nick.'],
+  ['Ears', 'Rather small with rounded tips, set slightly tilted and well apart.'],
+  ['Eyes', 'Not too round, slightly oval. Deep blue color.'],
+  ['Body', 'Slightly elongated; males should be more massive than females.'],
+  ['Legs', 'Short and thick, rounded paws.'],
+  ['Gloves', 'The breed’s special feature: pure white feet on all four legs, stopping at the joint. On the back legs they ideally end in an inverted "V", extending from halfway to three-quarters of the way between the foot and the hock.'],
+  ['Tail', 'Medium length, plumed.'],
+  ['Coat', 'Semi-long, silky texture with little undercoat; short on the face, longer on the cheeks and ruff, long on the back and flanks.'],
+];
+
+const flaws = [
+  'Pure white or colored patches on the chest or stomach',
+  'White patches on the colored areas, or the reverse',
+  'White spot on the genitals',
+  'Incomplete pigmentation of the nose leather',
+  'White creeping up the sides or back of the gloves (so-called "laces")',
+  'Absence of "gauntlets" on the hind legs',
+];
+
+const points = [
+  ['Head (shape, cheeks, nose, mouth and teeth, forehead, chin, ears)', 20],
+  ['Eye shape and color', 5],
+  ['Body (shape, size, bone structure, legs, feet)', 20],
+  ['Tail (length and shape)', 10],
+  ['Body and points color', 10],
+  ['Coat quality and texture', 10],
+  ['Front gloves', 5],
+  ['Back gloves', 5],
+  ['Gauntlets', 5],
+  ['Evenness and symmetry of gloves and gauntlets', 5],
+  ['General condition', 5],
+];
+---
+<Layout
+  title="Sacred Birman"
+  lang="en"
+  description="Everything about the Sacred Birman: temperament, appearance, recognized colors, the FIFe standard and our cats."
+>
+  <div class="breed-masthead sacro">
+    <span class="eyebrow">The sacred</span>
+    <h1>Sacred Birman</h1>
+    <div class="rule"></div>
+  </div>
+
+  <h2>Temperament</h2>
+  <p>
+    The Sacred Birman has a balanced, sweet and affectionate temperament: it's the
+    perfect blend of the Persian and the Siamese, with the calm of the former and
+    the intelligence and playfulness of the latter.
+  </p>
+  <p>
+    It bonds closely with its human, whom it loves with tenderness and devotion. It's
+    a sociable cat that lives happily alongside children, dogs and other cats… even
+    though it would rather be an "only child". It doesn't like being alone: if you're
+    away for long periods, it's a good idea to give it the company of another cat.
+  </p>
+  <p>
+    It's remarkably intelligent and sensitive… it's the only cat that looks its owner
+    in the eye not as a challenge, but to read their thoughts. It learns its name
+    easily and rushes over for cuddles and food as soon as it's called.
+  </p>
+
+  <h2>Appearance and coat</h2>
+  <p>
+    The Sacred Birman is a colorpoint cat, part of the group of feline breeds that
+    carry the Himalayan gene also typical of the Siamese. The coat is ivory-colored,
+    with warmer or cooler tones.
+  </p>
+  <p>
+    The Birman's defining features are its "points" (face, legs, ears, tail, genitals),
+    colored and contrasting with the body, and its "gloves": pure white inverted "V"s
+    in sharp contrast with the points. In show cats, the white must not go past the
+    carpal area.
+  </p>
+
+  <h2>Recognized colors</h2>
+  <div class="color-grid">
+    {colors.map((c) => (
+      <div class="color-item">
+        <span class="color-swatch" style={`background:${c.swatch}`}></span>
+        <div>
+          <h3>{c.name}</h3>
+          <p>{c.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <h2>FIFe standard</h2>
+  <dl class="standard-grid">
+    {standard.map(([term, def]) => (
+      <>
+        <dt>{term}</dt>
+        <dd>{def}</dd>
+      </>
+    ))}
+  </dl>
+
+  <details class="technical-details">
+    <summary>Disqualifying faults and points scale</summary>
+
+    <h3>Disqualifying faults</h3>
+    <ul>
+      {flaws.map((f) => <li>{f}</li>)}
+    </ul>
+
+    <h3>Points scale <span class="points-total">(100 points total)</span></h3>
+    <table class="points-table">
+      <tbody>
+        {points.map(([label, value]) => (
+          <tr>
+            <td>{label}</td>
+            <td class="points-value">{value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </details>
+
+  <h2>Our Sacred Birman cats</h2>
+  <BreedCatsList breed="Sacro di Birmania" lang="en" />
+
+  <p><a class="text-link" href="/en/litters">See our available litters →</a></p>
+</Layout>
+
+<style>
+  .breed-masthead { margin-bottom: 1.75rem; }
+  .breed-masthead .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sacro);
+  }
+  .breed-masthead h1 {
+    font-family: var(--font-display-italic);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+  }
+  .breed-masthead .rule {
+    height: 2px;
+    width: 6rem;
+    margin-top: 1rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+  .text-link { color: var(--sacro); font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+
+  h2 { margin-top: 2.25rem; }
+
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .color-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .color-swatch {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    margin-top: 0.35rem;
+    border: 1px solid var(--line);
+  }
+  .color-item h3 { font-size: 1.05rem; margin: 0 0 0.25rem; }
+  .color-item p { margin: 0; font-size: 0.9rem; color: var(--ink-soft); }
+
+  .standard-grid {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .standard-grid dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sacro);
+    padding-top: 0.15rem;
+  }
+  .standard-grid dd { margin: 0 0 0.5rem; color: var(--ink-soft); }
+  @media (max-width: 640px) {
+    .standard-grid { grid-template-columns: 1fr; }
+    .standard-grid dt { margin-top: 0.75rem; }
+  }
+
+  .technical-details {
+    margin-top: 2.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+  .technical-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sacro);
+  }
+  .technical-details h3 { font-size: 1.1rem; margin-top: 1.5rem; }
+  .technical-details ul { color: var(--ink-soft); padding-left: 1.25rem; }
+  .technical-details li { margin-bottom: 0.35rem; }
+  .points-total { font-weight: 400; color: var(--ink-soft); font-size: 0.85rem; }
+
+  .points-table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; }
+  .points-table tr { border-bottom: 1px solid var(--line); }
+  .points-table td { padding: 0.5rem 0; color: var(--ink-soft); }
+  .points-value {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--ink);
+    width: 4rem;
+  }
+</style>

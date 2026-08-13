@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { breedLabels, type Lang } from '../i18n/ui';
 
 interface Props {
   name: string;
@@ -8,15 +9,17 @@ interface Props {
   titles: string[];
   coverImage: ImageMetadata;
   href: string;
+  lang?: Lang;
 }
-const { name, breed, color, titles, coverImage, href } = Astro.props;
+const { name, breed, color, titles, coverImage, href, lang = 'it' } = Astro.props;
 const isSacro = breed === 'Sacro di Birmania';
+const breedLabel = breedLabels[lang][breed] ?? breed;
 ---
 <a class={`cat-card ${isSacro ? 'sacro-cat' : 'profano-cat'}`} href={href}>
   <Image src={coverImage} alt={name} width={400} height={400} loading="lazy" />
   <div class="cat-card-body">
     <h3>{name}</h3>
-    <p class="meta">{breed}{color ? ` · ${color}` : ''}</p>
+    <p class="meta">{breedLabel}{color ? ` · ${color}` : ''}</p>
     {titles.length > 0 && <p class="titles">{titles.join(', ')}</p>}
   </div>
 </a>

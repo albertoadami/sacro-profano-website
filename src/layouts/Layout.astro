@@ -1,15 +1,41 @@
 ---
 import SpeedInsights from '@vercel/speed-insights/astro';
 import Analytics from '@vercel/analytics/astro';
+import { useTranslations, type Lang } from '../i18n/ui';
+import { getAlternatePath } from '../i18n/routes';
+import LangSwitcher from '../components/LangSwitcher.astro';
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
-const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } = Astro.props;
+const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery', lang = 'it' } = Astro.props;
+const t = useTranslations(lang);
+const alternatePath = getAlternatePath(Astro.url.pathname);
+const home = lang === 'it' ? '/' : '/en';
+const nav = lang === 'it'
+  ? [
+      ['/', t('nav.home')],
+      ['/about-us', t('nav.about')],
+      ['/sacro-di-birmania', t('nav.sacro')],
+      ['/kurilian-bobtail', t('nav.kurilian')],
+      ['/breeders', t('nav.breeders')],
+      ['/litters', t('nav.litters')],
+      ['/contact', t('nav.contact')],
+    ]
+  : [
+      ['/en', t('nav.home')],
+      ['/en/about-us', t('nav.about')],
+      ['/en/birmans', t('nav.sacro')],
+      ['/en/kurilian-bobtail-section', t('nav.kurilian')],
+      ['/en/breeders', t('nav.breeders')],
+      ['/en/litters', t('nav.litters')],
+      ['/en/contact', t('nav.contact')],
+    ];
 ---
 <!doctype html>
-<html lang="it">
+<html lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,33 +46,33 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
   <link rel="preload" href="/fonts/worksans-variable.woff2" as="font" type="font/woff2" crossorigin />
   <SpeedInsights />
   <Analytics />
+  <link rel="alternate" hreflang="it" href={new URL(lang === 'it' ? Astro.url.pathname : alternatePath, Astro.site)} />
+  <link rel="alternate" hreflang="en" href={new URL(lang === 'en' ? Astro.url.pathname : alternatePath, Astro.site)} />
+  <link rel="alternate" hreflang="x-default" href={new URL(lang === 'it' ? Astro.url.pathname : alternatePath, Astro.site)} />
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="wordmark">
+    <a href={home} class="wordmark">
       <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
     </a>
-    <button
-      class="menu-toggle"
-      id="menu-toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="site-nav"
-      aria-label="Apri il menu"
-    >
-      <span class="menu-toggle-bar"></span>
-      <span class="menu-toggle-bar"></span>
-      <span class="menu-toggle-bar"></span>
-    </button>
-    <nav id="site-nav">
-      <a href="/">Home</a>
-      <a href="/about-us">Chi siamo</a>
-      <a href="/sacro-di-birmania">Sacro di Birmania</a>
-      <a href="/kurilian-bobtail">Kurilian Bobtail</a>
-      <a href="/breeders">Riproduttori</a>
-      <a href="/litters">Cucciolate</a>
-      <a href="/contact">Contatti</a>
-    </nav>
+    <div class="header-controls">
+      <LangSwitcher lang={lang} alternatePath={alternatePath} currentPath={Astro.url.pathname} />
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label={t('menu.open')}
+      >
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+      <nav id="site-nav">
+        {nav.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+    </div>
   </header>
 
   <main>
@@ -54,7 +80,7 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
   </main>
 
   <footer class="site-footer">
-    <a href="/" class="wordmark footer-wordmark">
+    <a href={home} class="wordmark footer-wordmark">
       <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
     </a>
     <nav class="social-links" aria-label="Social">
@@ -187,6 +213,13 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     }
     .site-header nav a:hover { color: var(--ink); border-color: var(--brass); }
 
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
     .menu-toggle {
       display: none;
       flex-direction: column;
@@ -284,6 +317,15 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
         if (event.key === 'Escape') closeNav();
       });
     }
+
+    // Remember an explicit language choice so the geo-detection middleware
+    // (middleware.ts) doesn't override it on a later visit to "/".
+    document.querySelectorAll('[data-set-locale]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const locale = link.getAttribute('data-set-locale');
+        document.cookie = `locale=${locale}; path=/; max-age=31536000; samesite=lax`;
+      });
+    });
   </script>
 </body>
 </html>

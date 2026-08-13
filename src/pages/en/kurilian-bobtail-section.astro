@@ -1,0 +1,159 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import BreedCatsList from '../../components/BreedCatsList.astro';
+
+const traits = [
+  ['Body', 'Strong, muscular and sturdy. The powerful hind legs are longer than the front ones, giving the back a slight forward slope.'],
+  ['Tail', 'Well furred, can be knotty, curved or even kinked. Between 3 and 12 cm long: over 8 cm is considered a fault in show cats.'],
+  ['Head', 'Broad, trapezoidal in shape, with full cheeks.'],
+  ['Nose', 'Medium length, with no defined stop.'],
+  ['Ears', 'Set high on the skull, medium-sized, generously furred.'],
+  ['Coat', 'Comes in short-haired and semi-long varieties. In the semi-long variety, the coat is medium length, soft and silky, with little undercoat, longer on the ruff, belly and flanks.'],
+];
+
+const allowedColors = ['Black', 'Red', 'Tortoiseshell', 'Blue', 'Cream', 'Blue tortie', 'Silver', 'Smoke', 'White (patches)', 'Tabby'];
+const excludedColors = ['Chocolate', 'Fawn', 'Cinnamon', 'Lavender', 'Colorpoint'];
+---
+<Layout
+  title="Kurilian Bobtail"
+  lang="en"
+  description="Everything about the Kurilian Bobtail: history, temperament, appearance, recognized colors and our cats."
+>
+  <div class="breed-masthead profano">
+    <span class="eyebrow">The profane</span>
+    <h1>Kurilian Bobtail</h1>
+    <div class="rule"></div>
+  </div>
+
+  <h2>History</h2>
+  <p>
+    The Kurilian is a recently recognized breed that developed naturally: it existed
+    in total isolation for a long time on the Kuril Islands, an archipelago between
+    Russia and Japan.
+  </p>
+  <p>
+    Virtually unknown in the rest of the world, it became fairly popular in Russia
+    thanks to its good temperament and wild look, despite lacking the kind of formal
+    selective breeding that would classify it as a breed.
+  </p>
+  <p>
+    Numerous accounts mention short-tailed cats brought home by military personnel
+    and scientists stationed on those islands around the middle of the last century.
+    A proper breeding and selection program only began in the late 1980s, started by
+    two Russian breeders.
+  </p>
+
+  <h2>Temperament</h2>
+  <p>
+    The Kurilian's wild appearance doesn't reflect the breed's temperament. It's an
+    intelligent, playful cat that enjoys the company of its owner and other pets, and
+    adapts perfectly to apartment life. In the wild it's known for its skills as a
+    hunter, fisher and swimmer - traits it keeps even as a house cat.
+  </p>
+
+  <h2>Appearance</h2>
+  <dl class="traits-grid">
+    {traits.map(([term, def]) => (
+      <>
+        <dt>{term}</dt>
+        <dd>{def}</dd>
+      </>
+    ))}
+  </dl>
+
+  <h2>Recognized colors</h2>
+  <p>
+    The Kurilian is recognized in the traditional colors - black, red and
+    tortoiseshell - along with their dilutions: blue, cream and blue tortie, with or
+    without white patches. Silver and smoke variants are also allowed, in all colors,
+    both solid and with tabby markings.
+  </p>
+  <div class="color-chips">
+    {allowedColors.map((c) => <span class="chip allowed">{c}</span>)}
+  </div>
+  <p class="excluded-note">
+    Since crossbreeding with other breeds isn't allowed for the Kurilian Bobtail,
+    colors that betray obvious hybridization are excluded:
+  </p>
+  <div class="color-chips">
+    {excludedColors.map((c) => <span class="chip excluded">{c}</span>)}
+  </div>
+
+  <h2>Registration</h2>
+  <p>
+    This breed still allows for "novice" registration: a cat can be submitted for
+    recognition even without a pedigree proving its lineage, as long as its origin
+    from the Kuril Islands is certified.
+  </p>
+
+  <h2>Our Kurilian Bobtail cats</h2>
+  <BreedCatsList breed="Kurilian Bobtail" lang="en" />
+
+  <p><a class="text-link" href="/en/litters">See our available litters →</a></p>
+</Layout>
+
+<style>
+  .breed-masthead { margin-bottom: 1.75rem; }
+  .breed-masthead .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--profano);
+  }
+  .breed-masthead h1 {
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-top: 0.35rem;
+    margin-bottom: 0;
+  }
+  .breed-masthead .rule {
+    height: 3px;
+    width: 6rem;
+    margin-top: 1rem;
+    background: repeating-linear-gradient(90deg, var(--profano) 0 10px, transparent 10px 16px);
+  }
+  .text-link { color: var(--profano); font-weight: 600; text-decoration: none; }
+  .text-link:hover { text-decoration: underline; }
+
+  h2 { margin-top: 2.25rem; }
+
+  .traits-grid {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.5rem;
+    margin-top: 1rem;
+  }
+  .traits-grid dt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--profano);
+    padding-top: 0.15rem;
+  }
+  .traits-grid dd { margin: 0 0 0.5rem; color: var(--ink-soft); }
+  @media (max-width: 640px) {
+    .traits-grid { grid-template-columns: 1fr; }
+    .traits-grid dt { margin-top: 0.75rem; }
+  }
+
+  .color-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .chip {
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+  .chip.allowed { color: var(--profano); border-color: var(--profano); background: var(--profano-soft); }
+  .chip.excluded {
+    color: var(--ink-soft);
+    border-color: var(--line);
+    background: var(--paper-2);
+    text-decoration: line-through;
+    text-decoration-color: var(--ink-soft);
+  }
+  .excluded-note { margin-top: 1.5rem; color: var(--ink-soft); }
+</style>

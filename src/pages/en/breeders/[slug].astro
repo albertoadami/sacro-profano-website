@@ -1,0 +1,65 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { useTranslations } from '../../../i18n/ui';
+
+export async function getStaticPaths() {
+  const cats = await getCollection('catsEn');
+  return cats.map((cat) => ({
+    params: { slug: cat.slug },
+    props: { cat },
+  }));
+}
+
+interface Props {
+  cat: CollectionEntry<'catsEn'>;
+}
+const { cat } = Astro.props;
+const { Content } = await cat.render();
+const isSacro = cat.data.breed === 'Sacro di Birmania';
+const t = useTranslations('en');
+---
+<Layout title={cat.data.name} lang="en">
+  <p><a class="back-link" href="/en/breeders">{t('cat.back')}</a></p>
+  <article class={`cat-page ${isSacro ? 'sacro' : 'profano'}`}>
+    <Image src={cat.data.coverImage} alt={cat.data.name} width={600} height={600} />
+    <div>
+      <h1>{cat.data.name}</h1>
+      <p><strong>{t('cat.breed')}:</strong> {isSacro ? 'Sacred Birman' : cat.data.breed}</p>
+      {cat.data.color && <p><strong>{t('cat.color')}:</strong> {cat.data.color}</p>}
+      {cat.data.titles.length > 0 && <p><strong>{t('cat.titles')}:</strong> {cat.data.titles.join(', ')}</p>}
+      {cat.data.pedigree && <p><strong>{t('cat.pedigree')}:</strong> {cat.data.pedigree}</p>}
+      <Content />
+    </div>
+
+    {cat.data.gallery.length > 0 && (
+      <div class="gallery">
+        {cat.data.gallery.map((img) => <Image src={img} alt={cat.data.name} width={300} height={300} />)}
+      </div>
+    )}
+  </article>
+</Layout>
+
+<style>
+  .back-link { color: var(--brass); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+  .back-link:hover { text-decoration: underline; }
+
+  .cat-page { display: grid; grid-template-columns: 300px 1fr; gap: 2rem; margin-top: 1rem; }
+  .cat-page img:first-child {
+    width: 100%;
+    border-top: 3px solid var(--sacro);
+    border-radius: 20px 6px 6px 6px;
+  }
+  .cat-page.profano img:first-child { border-top-color: var(--profano); border-radius: 4px 16px 4px 16px; }
+
+  .cat-page strong { color: var(--sacro); }
+  .cat-page.profano strong { color: var(--profano); }
+
+  .gallery { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 0.75rem; }
+  .gallery img { border-radius: 8px; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+
+  @media (max-width: 640px) {
+    .cat-page { grid-template-columns: 1fr; }
+  }
+</style>

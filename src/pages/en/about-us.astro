@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import catHouse from '../../assets/about/cat-house.png';
+---
+<Layout
+  title="About us"
+  lang="en"
+  description="Amateur cattery breeding Sacred Birman and Kurilian Bobtail cats: philosophy, experience and affiliations."
+>
+  <h1>About us</h1>
+  <div class="rule"></div>
+
+  <p>
+    Our Sacred Birman cattery was born in 2008, from Diego's desire to take a new
+    direction from the old Golden Rock cattery, which he had shared with someone
+    else until then. All the Golden Rock cats stayed with us, letting us carry on
+    the breeding programme Diego had already started and improve it with new
+    bloodlines from some of the most prestigious European catteries. The excellent
+    work done over the years means all our cats, first Golden Rock and now
+    Sacro &amp; Profano, share a very recognisable look.
+  </p>
+
+  <h2>Our philosophy</h2>
+  <p>
+    Our breeding philosophy doesn't chase "aesthetic perfection" at all costs -
+    our cats' health always comes first.
+  </p>
+
+  <div class="cat-house-section">
+    <div>
+      <h2>A real cat-house</h2>
+      <p>
+        All our cats live at home with us and share our everyday family life…
+        napping on sofas and beds. They have plenty of scratching trees to play
+        on and keep their claws in shape. Our house is built cat-first… wide
+        terraces where they can sunbathe and watch the birds safely, shelves
+        running around the walls at height, and little ladders or scratching
+        posts to bring them back down to the floor… in short, ours is a real
+        "cat-house".
+      </p>
+    </div>
+    <Image class="cat-house-photo" src={catHouse} alt="Our cats at home, among sofas, scratching posts and shelves" width={431} height={524} />
+  </div>
+
+  <h2>Affiliations</h2>
+  <p>
+    List the relevant cat associations here (e.g. ANFI, ENFI, FIFe) and how many
+    years you've been a member - it goes a long way toward credibility with anyone
+    looking for a serious cattery.
+  </p>
+
+  <h2>Where we are</h2>
+  <p>
+    City/region and, if you'd like, details on visiting the cattery by appointment.
+  </p>
+</Layout>
+
+<style>
+  .rule {
+    height: 2px;
+    width: 6rem;
+    margin: 1rem 0 1.75rem;
+    background: linear-gradient(90deg, var(--brass), transparent 90%);
+  }
+
+  .cat-house-section {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .cat-house-photo {
+    width: 100%;
+    height: auto;
+    border-top: 3px solid var(--brass);
+    border-radius: 20px 6px 6px 6px;
+    box-shadow: var(--shadow);
+  }
+  @media (max-width: 640px) {
+    .cat-house-section { grid-template-columns: 1fr; }
+    .cat-house-photo { max-width: 320px; }
+  }
+</style>

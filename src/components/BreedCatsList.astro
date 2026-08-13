@@ -1,13 +1,17 @@
 ---
 import CatCard from './CatCard.astro';
 import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../i18n/ui';
 
 interface Props {
   breed: 'Sacro di Birmania' | 'Kurilian Bobtail';
+  lang?: Lang;
 }
-const { breed } = Astro.props;
+const { breed, lang = 'it' } = Astro.props;
+const t = useTranslations(lang);
+const breedersPath = lang === 'it' ? '/breeders' : '/en/breeders';
 
-const cats = (await getCollection('cats', (c) => c.data.breed === breed))
+const cats = (await getCollection(lang === 'it' ? 'cats' : 'catsEn', (c) => c.data.breed === breed))
   .sort((a, b) => a.data.order - b.data.order);
 ---
 {cats.length > 0 ? (
@@ -19,12 +23,13 @@ const cats = (await getCollection('cats', (c) => c.data.breed === breed))
         color={cat.data.color}
         titles={cat.data.titles}
         coverImage={cat.data.coverImage}
-        href={`/breeders/${cat.slug}`}
+        href={`${breedersPath}/${cat.slug}`}
+        lang={lang}
       />
     ))}
   </div>
 ) : (
-  <p><em>Nessun riproduttore pubblicato ancora per questa razza.</em></p>
+  <p><em>{t('breeders.empty')}</em></p>
 )}
 
 <style>
