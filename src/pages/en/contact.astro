@@ -1,27 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Contatti">
-  <h1>Contatti</h1>
+<Layout title="Contact" lang="en">
+  <h1>Contact</h1>
   <div class="rule"></div>
   <p>
-    Per informazioni su cuccioli disponibili, cucciolate future o per qualsiasi domanda,
-    scrivici tramite il form o contattaci direttamente.
+    For questions about available kittens, upcoming litters, or anything else,
+    write to us using the form below or reach out directly.
   </p>
 
   <div class="contact-info">
     <p class="contact-name">Sacro e Profano</p>
-    <p>Allevamento Kurilian Bobtail e Sacri di Birmania</p>
-    <p>di Diego Norbedo e Diana Di Natale</p>
-    <p>Trieste – Italia</p>
-    <p>Cellulare Diego: <a href="tel:+393357685734">(+39) 335-7685734</a></p>
-    <p>Cellulare Diana: <a href="tel:+393478491253">(+39) 347-8491253</a></p>
+    <p>Kurilian Bobtail and Sacred Birman cattery</p>
+    <p>by Diego Norbedo and Diana Di Natale</p>
+    <p>Trieste – Italy</p>
+    <p>Diego's mobile: <a href="tel:+393357685734">(+39) 335-7685734</a></p>
+    <p>Diana's mobile: <a href="tel:+393478491253">(+39) 347-8491253</a></p>
     <p>E-mail: <a href="mailto:info@sacroeprofanocattery.com">info@sacroeprofanocattery.com</a></p>
   </div>
 
-  <form id="contact-form" class="contact-form">
+  <!--
+    Replace YOUR_FORM_ID with the ID from a free Formspree form: https://formspree.io
+    No custom backend needed: Formspree handles email delivery and spam filtering.
+  -->
+  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
     <label>
-      Nome
+      Name
       <input type="text" name="name" required />
     </label>
     <label>
@@ -29,30 +33,12 @@ import Layout from '../layouts/Layout.astro';
       <input type="email" name="email" required />
     </label>
     <label>
-      Messaggio
+      Message
       <textarea name="message" rows="5" required></textarea>
     </label>
-    <button type="submit">Invia</button>
+    <button type="submit">Send</button>
   </form>
 </Layout>
-
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-
-  form?.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const name = (form.elements.namedItem('name') as HTMLInputElement).value;
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
-
-    const subject = `Richiesta info da ${name}`;
-    const body = `${message}\n\n---\nNome: ${name}\nEmail: ${email}`;
-
-    window.location.href =
-      `mailto:info@sacroeprofanocattery.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  });
-</script>
 
 <style>
   .rule {

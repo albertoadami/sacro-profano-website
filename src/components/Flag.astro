@@ -1,0 +1,40 @@
+---
+interface Props {
+  code: 'it' | 'en';
+}
+const { code } = Astro.props;
+---
+<span class="flag-badge">
+  {code === 'it' ? (
+    <svg viewBox="0 0 3 2" aria-hidden="true" focusable="false">
+      <rect width="1" height="2" x="0" fill="#009246" />
+      <rect width="1" height="2" x="1" fill="#f1f2f1" />
+      <rect width="1" height="2" x="2" fill="#ce2b37" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 60 36" aria-hidden="true" focusable="false">
+      <rect width="60" height="36" fill="#00247d" />
+      <path d="M0,0 60,36 M60,0 0,36" stroke="#fff" stroke-width="7" />
+      <path d="M0,0 L25,15 M60,0 L35,15 M0,36 L25,21 M60,36 L35,21" stroke="#cf142b" stroke-width="3" />
+      <path d="M30,0 V36 M0,18 H60" stroke="#fff" stroke-width="12" />
+      <path d="M30,0 V36 M0,18 H60" stroke="#cf142b" stroke-width="6" />
+    </svg>
+  )}
+</span>
+
+<style>
+  .flag-badge {
+    display: inline-flex;
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+  .flag-badge svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
