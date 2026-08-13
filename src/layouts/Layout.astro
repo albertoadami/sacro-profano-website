@@ -52,6 +52,18 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     <a href="/" class="wordmark footer-wordmark">
       <span class="sacro">Sacro</span> <span class="rest">e Profano</span>
     </a>
+    <nav class="social-links" aria-label="Social">
+      <a href="https://www.facebook.com/profile.php?id=100057880110518&locale=it_IT" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M13.5 21v-7.5h2.5l.5-3h-3V8.25c0-.87.24-1.46 1.49-1.46H16.5V4.14C16.24 4.1 15.36 4 14.33 4c-2.15 0-3.63 1.31-3.63 3.72V10.5H8.5v3H10.7V21h2.8Z" />
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/sacroeprofanocattery/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+          <path d="M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45.53C6.09.28 6.82.11 7.88.06 8.94.01 9.28 0 12 0Zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0 8.25a3.25 3.25 0 1 1 0-6.5 3.25 3.25 0 0 1 0 6.5ZM17.4 4.6a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4Z" transform="translate(0 2)" />
+        </svg>
+      </a>
+    </nav>
     <p>&copy; {new Date().getFullYear()} Sacro e Profano Cattery</p>
   </footer>
 
@@ -227,6 +239,14 @@ const { title, description = 'Allevamento amatoriale Sacro e Profano Cattery' } 
     }
     .site-footer p { font-size: 0.88rem; color: var(--ink-soft); }
     .footer-wordmark { font-size: 1rem; }
+
+    .social-links { display: flex; gap: 1rem; }
+    .social-links a {
+      display: flex;
+      color: var(--ink-soft);
+      transition: color 0.15s ease;
+    }
+    .social-links a:hover { color: var(--brass); }
   </style>
 
   <script>
